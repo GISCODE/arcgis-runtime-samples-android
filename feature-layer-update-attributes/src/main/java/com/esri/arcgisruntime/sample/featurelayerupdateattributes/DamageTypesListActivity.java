@@ -29,6 +29,8 @@ import android.widget.ListView;
  */
 public class DamageTypesListActivity extends AppCompatActivity {
 
+  public static final String EXTRA_NAME = "typdamage";
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -42,10 +44,9 @@ public class DamageTypesListActivity extends AppCompatActivity {
     listView.setTextFilterEnabled(true);
 
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      public void onItemClick(AdapterView<?> parent, View view,
-          int position, long id) {
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent myIntent = new Intent();
-        myIntent.putExtra("typdamage", damageTypes[position]); //Optional parameters
+        myIntent.putExtra(EXTRA_NAME, damageTypes[position]); //Optional parameters
         setResult(100, myIntent);
         finish();
       }
