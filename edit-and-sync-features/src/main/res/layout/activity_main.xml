@@ -10,14 +10,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
     </com.esri.arcgisruntime.mapping.view.MapView>
+    <TextView
+        android:text="Edit Counts:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/mapView" android:layout_alignStart="@+id/mapView"
+        android:id="@+id/editCountLabel"
+        android:backgroundTint="@color/colorPrimaryDark" android:foregroundTint="@color/colorPrimaryDark"
+        android:textSize="18sp" android:layout_marginTop="15sp" android:padding="8dp" android:layout_margin="8dp"
+        android:background="@color/colorPrimaryDark" android:textColor="@color/textColorPrimaryDark"
+        android:textStyle="bold" android:elevation="8dp" android:visibility="gone"/>
     <Button
-            android:id="@+id/geodatabaseButton"
-            android:text="@string/gen_geodatabase_button_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+        android:id="@+id/geodatabaseButton"
+        android:text="@string/gen_geodatabase_button_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:backgroundTint="@color/colorPrimaryDark" android:foregroundTint="@color/colorPrimaryDark"
+        android:textSize="18sp" android:layout_marginTop="15sp" android:padding="8dp" android:layout_margin="8dp"
+        android:background="@color/colorPrimaryDark" android:textColor="@color/textColorPrimaryDark"
+        android:textStyle="bold" android:elevation="16dp"/>
     <RelativeLayout
             android:id="@+id/progressLayout"
             android:layout_width="wrap_content"
