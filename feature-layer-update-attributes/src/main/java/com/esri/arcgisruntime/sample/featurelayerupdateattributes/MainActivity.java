@@ -122,8 +122,6 @@ public class MainActivity extends AppCompatActivity {
         // 1 - identify the top tapped GeoElement in the given layer
         final ListenableFuture<IdentifyLayerResult> identifyFuture = mMapView.identifyLayerAsync(mFeatureLayer,
             mClickPoint, 10, false, 1);
-
-        // 2 - Make sure the feature is loaded - add done loading listener to fire when the selection returns
         identifyFuture.addDoneListener(new Runnable() {
           @Override
           public void run() {
@@ -134,10 +132,10 @@ public class MainActivity extends AppCompatActivity {
 
               if (resultGeoElements.size() >0) {
                 if (resultGeoElements.get(0) instanceof ArcGISFeature) {
+
+                  // 2 - Get the feature, select it, and get the relevant attribute value
                   mSelectedArcGISFeature = (ArcGISFeature) resultGeoElements.get(0);
-                  // highlight the selected feature
                   mFeatureLayer.selectFeature(mSelectedArcGISFeature);
-                  // show callout with the value for the attribute "typdamage" of the selected feature
                   mSelectedArcGISFeatureAttributeValue = (String) mSelectedArcGISFeature.getAttributes().get(
                       getResources().getString(R.string.service_field_name)
                   );
@@ -187,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
       // display progress dialog while updating attribute callout
       mProgressDialog.show();
 
-      // 4 - Get the result from the ListActivity with the new value the user tapped on
+      // Get the result from the ListActivity with the new value the user tapped on
       updateAttributes(data.getStringExtra(DamageTypesListActivity.EXTRA_NAME));
     }
   }
@@ -198,17 +196,15 @@ public class MainActivity extends AppCompatActivity {
    */
   private boolean updateAttributes(final String typeDamage) {
 
-    // load the selected feature
+    // 4 - Make sure the feature is loaded - makes sure all attributes are available on the local feature
     mSelectedArcGISFeature.loadAsync();
-
-    // update the selected feature
     mSelectedArcGISFeature.addDoneLoadingListener(new Runnable() {
       @Override public void run() {
         if (mSelectedArcGISFeature.getLoadStatus() == LoadStatus.FAILED_TO_LOAD) {
           Log.d(getResources().getString(R.string.app_name), "Error while loading feature");
         }
 
-        // 5 - update the Feature's Attributes map with the new selected value for "typdamage"
+        // 5 - update the Feature's Attributes map with the new selected value for the field
         mSelectedArcGISFeature.getAttributes().put("typdamage", typeDamage);
 
         try {
@@ -221,7 +217,6 @@ public class MainActivity extends AppCompatActivity {
 
               // 7 - Apply the edits to the server
               final ListenableFuture<List<FeatureEditResult>> serverResult = mServiceFeatureTable.applyEditsAsync();
-
               serverResult.addDoneListener(new Runnable() {
                 @Override
                 public void run() {
