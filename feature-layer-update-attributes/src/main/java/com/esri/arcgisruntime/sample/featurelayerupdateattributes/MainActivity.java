@@ -209,7 +209,8 @@ public class MainActivity extends AppCompatActivity {
 
         try {
           // 6 - Update feature in the feature table
-          final ListenableFuture<Void> mapViewResult = mServiceFeatureTable.updateFeatureAsync(mSelectedArcGISFeature);
+          final ListenableFuture<Void> mapViewResult = mServiceFeatureTable.updateFeatureAsync(
+              mSelectedArcGISFeature);
 
           mapViewResult.addDoneListener(new Runnable() {
             @Override
@@ -238,9 +239,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if (mProgressDialog.isShowing()) {
                       mProgressDialog.dismiss();
-                      // display the callout with the updated value
-                      showCallout((String) mSelectedArcGISFeature.getAttributes().get("typdamage"));
                     }
+                    // display the callout with the updated value
+                    showCallout((String) mSelectedArcGISFeature.getAttributes().get("typdamage"));
 
                   } catch (Exception e) {
                     Log.e(getResources().getString(R.string.app_name), "applying changes to the server failed: " + e.getMessage());

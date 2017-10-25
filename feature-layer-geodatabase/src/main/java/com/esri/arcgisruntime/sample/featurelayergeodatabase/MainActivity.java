@@ -63,15 +63,19 @@ public class MainActivity extends AppCompatActivity {
         // create the path to local data
         extStorDir = Environment.getExternalStorageDirectory();
         extSDCardDirName = this.getResources().getString(R.string.config_data_sdcard_offline_dir);
-        vtpkFilename = this.getResources().getString(R.string.config_vtpk_name);
+        //vtpkFilename = this.getResources().getString(R.string.config_vtpk_name);
         geodbFilename = this.getResources().getString(R.string.config_geodb_name);
 
         // full path to data
-        mVtpk = createvtpkFilePath();
+        //mVtpk = createvtpkFilePath();
         mGeoDb = createGeoDbFilePath();
 
         // create MapView from layout
         mMapView = (MapView) findViewById(R.id.mapView);
+        Basemap basemap = Basemap.createStreets();
+        ArcGISMap mArcGISMap = new ArcGISMap(basemap);
+        // set the mArcGISMap to be displayed in this view
+        mMapView.setMap(mArcGISMap);
 
         // For API level 23+ request permission at runtime
         if (ContextCompat.checkSelfPermission(MainActivity.this, reqPermission[0]) == PackageManager.PERMISSION_GRANTED) {
@@ -119,12 +123,9 @@ public class MainActivity extends AppCompatActivity {
      */
     private void addData(String vtpkFile, final String geoDbFile) {
         // create a new ArcGISVectorTiledLayer from local path
-        ArcGISVectorTiledLayer vectorTiledLayer = new ArcGISVectorTiledLayer(vtpkFile);
+        //ArcGISVectorTiledLayer vectorTiledLayer = new ArcGISVectorTiledLayer(vtpkFile);
         // create a Basemap instance for use in creating an ArcGISMap instance
-        Basemap basemap = new Basemap(vectorTiledLayer);
-        ArcGISMap mArcGISMap = new ArcGISMap(basemap);
-        // set the mArcGISMap to be displayed in this view
-        mMapView.setMap(mArcGISMap);
+
         // create a new Geodatabase from local path
         mGeodatabase = new Geodatabase(geoDbFile);
         // load the geodatabase
@@ -139,15 +140,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // set initial viewpoint once MapView has spatial reference
-        mMapView.addSpatialReferenceChangedListener(new SpatialReferenceChangedListener() {
-            @Override
-            public void spatialReferenceChanged(SpatialReferenceChangedEvent spatialReferenceChangedEvent) {
-                // set the initial viewpoint
-                Point initPnt = new Point(-13214155, 4040194, SpatialReference.create(3857));
-                mMapView.setViewpoint(new Viewpoint(initPnt, 35e4));
-            }
-        });
+//        // set initial viewpoint once MapView has spatial reference
+//        mMapView.addSpatialReferenceChangedListener(new SpatialReferenceChangedListener() {
+//            @Override
+//            public void spatialReferenceChanged(SpatialReferenceChangedEvent spatialReferenceChangedEvent) {
+//                // set the initial viewpoint
+//                //Point initPnt = new Point(-13214155, 4040194, SpatialReference.create(3857));
+//                //mMapView.setViewpoint(new Viewpoint(initPnt, 35e4));
+//            }
+//        });
 
     }
 

@@ -119,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
         mGraphicsOverlay.getGraphics().add(boundary);
 
         // 2 - Set up parameters for the task, passing in the defined map extent
-        final ListenableFuture<GenerateGeodatabaseParameters> defaultParameters = mGeodatabaseSyncTask
-            .createDefaultGenerateGeodatabaseParametersAsync(extent);
+        final ListenableFuture<GenerateGeodatabaseParameters> defaultParameters =
+            mGeodatabaseSyncTask.createDefaultGenerateGeodatabaseParametersAsync(extent);
         defaultParameters.addDoneListener(new Runnable() {
           @Override public void run() {
             try {
@@ -129,12 +129,12 @@ public class MainActivity extends AppCompatActivity {
 
               // 3 - Configure other parameters:
               // - don't need attachments,
-
               parameters.setReturnAttachments(false);
 
               // 4 - Create and start the job
               // - define the local path where the geodatabase will be stored
               final String localGeodatabasePath = getCacheDir().toString() + File.separator + getString(R.string.file_name);
+
               final GenerateGeodatabaseJob generateGeodatabaseJob = mGeodatabaseSyncTask
                   .generateGeodatabaseAsync(parameters, localGeodatabasePath);
               generateGeodatabaseJob.start();

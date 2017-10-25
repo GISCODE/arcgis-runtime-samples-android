@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                                     // highlight the selected feature
                                     mFeatureLayer.selectFeature(mSelectedArcGISFeature);
                                     mAttributeID = mSelectedArcGISFeature.getAttributes().get("objectid").toString();
+
                                     // get the number of attachments
                                     final ListenableFuture<List<Attachment>> attachmentResults = mSelectedArcGISFeature.fetchAttachmentsAsync();
 
