@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.esri.arcgisruntime.layers.ArcGISSceneLayer;
 import com.esri.arcgisruntime.mapping.ArcGISScene;
+import com.esri.arcgisruntime.mapping.ArcGISTiledElevationSource;
 import com.esri.arcgisruntime.mapping.Basemap;
 import com.esri.arcgisruntime.mapping.view.Camera;
 import com.esri.arcgisruntime.mapping.view.SceneView;
@@ -38,11 +39,17 @@ public class MainActivity extends AppCompatActivity {
     ArcGISScene scene = new ArcGISScene();
     scene.setBasemap(Basemap.createImagery());
 
-    mSceneView = (SceneView) findViewById(R.id.sceneView);
+    mSceneView = findViewById(R.id.sceneView);
     mSceneView.setScene(scene);
 
+    // create an elevation source, and add this to the base surface of the scene
+    ArcGISTiledElevationSource elevationSource =
+        new ArcGISTiledElevationSource(getResources().getString(R.string.elevation_source));
+    scene.getBaseSurface().getElevationSources().add(elevationSource);
+
     // add a scene service to the scene for viewing buildings
-    ArcGISSceneLayer sceneLayer = new ArcGISSceneLayer(getResources().getString(R.string.brest_buildings));
+    ArcGISSceneLayer sceneLayer = new ArcGISSceneLayer(
+        getResources().getString(R.string.brest_buildings));
     scene.getOperationalLayers().add(sceneLayer);
 
     // add a camera and initial camera position
